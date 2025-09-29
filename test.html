@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bucha Pay — Про нас</title>
+  <style>
+    :root{
+      --green-600:#2e7d32;
+      --green-400:#66bb6a;
+      --white:#ffffff;
+      --muted:#6b6b6b;
+      --card-shadow: 0 10px 25px rgba(30,70,32,0.08);
+      --radius:14px;
+    }
+
+    body {
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+      background: linear-gradient(180deg,#f3fff1 0%, #f7fff8 100%);
+      margin:0; padding:0; color:#0b3a1f;
+    }
+
+    .wrap {
+      max-width:800px;
+      margin:28px auto;
+      padding:22px;
+      background: linear-gradient(180deg,var(--white),#fbfff8);
+      border-radius:18px;
+      box-shadow:0 14px 40px rgba(6,44,15,0.08);
+      text-align: center;
+    }
+
+    header {
+      margin-bottom: 30px;
+    }
+
+    header h1 {
+      font-size: 28px;
+      color: var(--green-600);
+      margin: 0;
+    }
+
+    header p {
+      font-size: 14px;
+      color: var(--muted);
+      margin: 6px 0 0;
+    }
+
+    .about img {
+      max-width: 300px;
+      width: 80%;
+      margin: 20px auto;
+      border-radius: var(--radius);
+      box-shadow: var(--card-shadow);
+      display: block;
+    }
+
+    .about p {
+      line-height: 1.6;
+      color: #333;
+      margin: 12px 0;
+    }
+
+    footer {
+      margin-top: 30px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* Адаптивність */
+    @media (max-width: 600px) {
+      header h1 { font-size: 22px; }
+      header p { font-size: 13px; }
+      .about img { max-width: 90%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Bucha Pay</h1>
+      <p>Зручний електронний квиток для міста Буча</p>
+    </header>
+
+    <section class="about">
+      <img src="logo.png" alt="Логотип Bucha Pay">
+      <p>Bucha Pay — сучасний сервіс для купівлі квитків і перегляду розкладу маршруток, автобусів та поїздів у місті Буча.  
+      Наше завдання — зробити поїздки простими, швидкими та безготівковими.</p>
+      <p>Використовуючи Bucha Pay, ви завжди матимете під рукою актуальний розклад і можливість оплатити проїзд у кілька кліків.</p>
+    </section>
+
+    <footer>
+      © 2025 Bucha Pay — з любов’ю до локальної мобільності
+    </footer>
+  </div>
+</body>
+</html>

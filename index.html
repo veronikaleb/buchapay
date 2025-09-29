@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<title>Вітаємо</title>
+<link rel="stylesheet" href="css/style.css">
+<script src="js/mylibs1.js" defer></script>
+</head>
+<body>
+<main class="main">
+  <div class="top-bar">
+    <div class="logo"><img src="img/logo.png" alt="BuchaPay Logo"></div>
+    <div class="datetime" id="datetime"></div>
+  </div>
+
+<nav class="menu">
+  <a href="ticket.html">Купити квиток</a>
+  <a href="https://nezlamni.city/articles/290733/spisok-ukrittiv-u-buchanskij-gromadi">Карта укриттів</a>
+  <a href="index.html">Розклад транспорту</a>
+  <a href="routes.html">Маршрутна карта</a>
+  <a href="#" id="aboutBtn">Про нас</a>
+</nav>
+<div class="about-modal">
+  <div class="about-modal-box">
+    <h2>Bucha Pay</h2>
+    <p><strong>Хто ми:</strong> Bucha Pay — сучасний комерційний сервіс для мешканців міста Буча, створений, щоб зробити пересування по місту
+       максимально зручним і комфортним.</p>
+    <p><strong>Наш сервіс:</strong> Ми дозволяємо купувати електронні квитки для маршруток, автобусів та поїздів, а також переглядати актуальний
+       розклад громадського транспорту в режимі реального часу.</p>
+    <p><strong>Наша мета:</strong> Ми прагнемо зробити поїздки швидкими, безготівковими та без зайвих черг, забезпечуючи мешканцям та гостям
+       міста надійний інструмент для планування маршрутів.</p>
+    <p><strong>Переваги:</strong> Зручність, ефективне користування громадським транспортом, економія часу та приємні, безпечні поїздки для всіх користувачів.</p>
+    <button class="about-close-btn">Закрити</button>
+  </div>
+</div>
+
+  <div class="submenu">
+    <nav class="tabs" role="tablist" aria-label="Види транспорту">
+      <button class="tab active" role="tab" aria-selected="true" aria-controls="panel-marsh" id="tab-marsh">Маршрутки</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="panel-bus" id="tab-bus">Автобуси</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="panel-train" id="tab-train">Електрички</button>
+    </nav>
+  </div>
+
+  <section class="toolbar">
+    <label class="search">
+      <input id="searchInput" type="search" placeholder="Пошук: номер, напрямок, станція…">
+      <span>⌕</span>
+    </label>
+    <label class="select">
+      <span>Дні:</span>
+      <select id="dayFilter">
+        <option value="усі">Усі</option>
+        <option value="будні">Будні</option>
+        <option value="вихідні">Вихідні</option>
+        <option value="щоденно">Щоденно</option>
+      </select>
+    </label>
+    <div class="toolbar-buttons">
+      <button id="favToggle" class="btn">Улюблені</button>
+      <button id="reverseBtn" class="btn">Зворотні</button>
+    </div>
+  </section>
+
+  <section id="panel-marsh" class="panel active" role="tabpanel" aria-labelledby="tab-marsh">
+    <div id="marshContainer" class="table-wrap" data-type="marsh"></div>
+  </section>
+  <section id="panel-bus" class="panel" role="tabpanel" aria-labelledby="tab-bus" hidden>
+    <div id="busContainer" class="table-wrap" data-type="bus"></div>
+  </section>
+  <section id="panel-train" class="panel" role="tabpanel" aria-labelledby="tab-train" hidden>
+    <div id="trainContainer" class="table-wrap" data-type="train"></div>
+  </section>
+</main>
+<footer>
+  <div class="footer-content">
+    <img src="img/footer_logo.png" alt="Логотип" class="footer-logo">
+    <span>&copy; 2025 Created by Veronika Lebedovska</span>
+  </div>
+</footer>
+<template id="routeCardTemplate">
+  <article class="card route-card">
+    <header class="card-header">
+      <div class="left">
+        <button class="fav" title="Додати в улюблені">☆</button>
+        <h3 class="route-title"></h3>
+      </div>
+      <span class="badge day-badge"></span>
+    </header>
+    <div class="card-body">
+      <div class="meta">
+        <span class="from"></span>
+        <span class="arrow">→</span>
+        <span class="to"></span>
+      </div>
+      <div class="times-wrap">
+        <div class="times"></div>
+      </div>
+    </div>
+    <footer class="card-footer">
+      <button class="btn small next-btn">Найближчий</button>
+      <span class="next-info" aria-live="polite"></span>
+    </footer>
+  </article>
+</template>
+</body>
+</html>

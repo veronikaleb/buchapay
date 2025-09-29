@@ -1,0 +1,15 @@
+{
+  "name": "BuchaPay",
+  "short_name": "BuchaPay",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#2E7D32",
+  "icons": [
+    {
+      "src": "assets/img/icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

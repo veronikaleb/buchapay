@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Електронний квиток</title>
+<link rel="stylesheet" href="css/ticket_style.css">
+<script src="js/ticket.js" defer></script>
+</head>
+<body>
+<div class="wrap" role="main">
+  <!-- Header -->
+  <header>
+    <div>
+      <h1 class="title-with-icon">
+       <img src="img/logo.png" alt="Іконка автобуса" class="title-icon">
+         Оплата транспорту в один клік
+      </h1>
+      <p class="small-muted">Оберіть маршрут — оплатіть — збережіть квиток</p>
+      <a class="small-muted" href="index.html">Повернутися на головну сторінку</a>
+    </div>
+    <div class="flex">
+      <button id="logoutBtn" class="logout hidden" title="Вихід">Вийти</button>
+    </div>
+  </header>
+  <!-- Grid: ліва + права колонка -->
+  <div class="grid">
+    <!-- Ліва колонка: логін та інформація -->
+    <div>
+      <!-- Login Card -->
+      <div class="login-card" id="loginCard">
+        <h2>Увійдіть, щоб купити квиток</h2>
+
+        <form id="loginForm" autocomplete="off">
+          <label class="muted" for="username">Логін</label>
+          <input id="username" class="input" type="text" placeholder="Логін" required value="user">
+
+          <label class="muted" for="password">Пароль</label>
+          <input id="password" class="input" type="password" placeholder="Пароль" required value="password123">
+
+          <div style="display:flex; gap:8px; margin-top:12px">
+            <button type="submit" class="btn btn-cta">Увійти</button>
+            <button type="button" id="demoBtn" class="btn btn-ghost">Демо</button>
+          </div>
+
+          <div id="errorMsg" class="error">Невірний логін або пароль</div>
+        </form>
+
+        <hr style="margin:14px 0; border:none; border-top:1px solid rgba(6,44,15,0.04)">
+
+        <div>
+          <p class="muted" style="margin:0 0 8px 0"><strong>Ціни (загальні):</strong></p>
+          <ul style="margin:0; padding-left:18px;">
+            <li>Маршрутка (локальні — Буча) — <strong>15 грн</strong></li>
+            <li>Маршрутка в напрямок <em>Ірпінь</em> / <em>Гостомель</em> — <strong>20 грн</strong></li>
+            <li>Маршрутка до <em>Києва</em> — <strong>60 грн</strong></li>
+            <li>Автобус БТС — <strong>15 грн</strong></li>
+            <li>Електричка — <strong>15 грн</strong></li>
+            <li>Зеленим кольром виділені  маршрутки, блакитним - автобуси, рожевим - електрички</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Фінальний квиток -->
+      <div id="finalCard" class="final-ticket hidden" aria-live="polite">
+        <h3 id="finalTitle">Квиток дійсний</h3>
+        <p class="muted" style="margin:6px 0 12px 0">Збережіть або завантажте штрихкод</p>
+
+        <div style="text-align:left; margin-bottom:12px">
+          <div class="ticket-row"><div class="ticket-label">Маршрут</div><div id="finalRoute" class="ticket-value"></div></div>
+          <div class="ticket-row"><div class="ticket-label">Від</div><div id="finalFrom" class="ticket-value"></div></div>
+          <div class="ticket-row"><div class="ticket-label">До</div><div id="finalTo" class="ticket-value"></div></div>
+          <div class="ticket-row"><div class="ticket-label">Час видачі</div><div id="finalIssue" class="ticket-value"></div></div>
+          <div class="ticket-row"><div class="ticket-label">Термін дії</div><div id="finalExpiry" class="ticket-value"></div></div>
+          <div class="ticket-row"><div class="ticket-label">Сплачено</div><div id="finalPrice" class="ticket-value"></div></div>
+        </div>
+
+        <canvas id="barcodeCanvas" width="640" height="140" style="max-width:100%; border-radius:8px; background:#fff"></canvas>
+        <div style="margin-top:10px; display:flex; gap:8px; justify-content:center">
+          <button id="saveBarcode" class="download-btn">Завантажити штрихкод</button>
+          <button id="printTicket" class="btn btn-ghost">Роздрукувати</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Права колонка: маршрути та панель квитка -->
+    <div>
+      <div class="routes-card" id="routesCard">
+        <div class="routes-header">
+          <strong>Доступні маршрути</strong>
+          <small class="muted">Клацніть картку, щоб вибрати</small>
+        </div>
+
+        <div id="routeGrid" class="route-grid" aria-live="polite"></div>
+
+        <!-- Панель вибраного квитка -->
+        <div id="ticketPanel" class="ticket-panel hidden" style="margin-top:14px">
+          <div style="display:flex; justify-content:space-between; align-items:center">
+            <div>
+              <div class="ticket-row"><div class="ticket-label">Маршрут</div><div id="ticketRoute" class="ticket-value"></div></div>
+              <div class="ticket-row"><div class="ticket-label">Від</div><div id="ticketFrom" class="ticket-value"></div></div>
+              <div class="ticket-row"><div class="ticket-label">До</div><div id="ticketTo" class="ticket-value"></div></div>
+              <div class="ticket-row"><div class="ticket-label">Час видачі</div><div id="ticketIssue" class="ticket-value"></div></div>
+              <div class="ticket-row"><div class="ticket-label">Термін дії</div><div id="ticketExpiry" class="ticket-value"></div></div>
+            </div>
+
+            <div style="text-align:center;">
+              <div class="muted">Сума</div>
+              <div class="price-big" id="ticketPrice">—</div>
+              <div class="small-muted" style="margin-top:8px">Оплата через</div>
+              <div class="cards-row" style="margin-top:8px">
+                <div class="card-logo" title="Visa">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/d/d6/Visa_2021.svg" 
+                      alt="Visa" width="36" height="22">
+                </div>
+                <div class="card-logo" title="Mastercard">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="36" height="22" viewBox="0 0 36 22"><rect width="36" height="22" rx="3" fill="#fff"/><g transform="translate(4,3)"><circle cx="6" cy="8" r="6" fill="#ff5f00"/><circle cx="14" cy="8" r="6" fill="#eb001b" opacity="0.95"/></g></svg>
+                </div>
+              </div>
+              <div style="margin-top:10px">
+                <button id="payBtn" class="btn btn-cta">Перейти до оплати</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- Footer -->
+<footer>
+  <div class="footer-content">
+    <img src="img/footer_logo.png" alt="Логотип" class="footer-logo">
+    <span>&copy; 2025 Created by Veronika Lebedovska</span>
+  </div>
+</footer>
+</div>
+<!-- Модальне вікно оплати -->
+<div id="modal" class="modal" role="dialog" aria-modal="true">
+  <div class="modal-box">
+    <h3 style="margin:0 0 6px 0">Оплата квитка</h3>
+    <div id="modalRoute" class="muted" style="margin-bottom:6px"></div>
+
+    <div style="margin:10px 0">
+      <div class="small-muted">Сума до оплати</div>
+      <div class="price-big" id="modalPrice">—</div>
+    </div>
+
+    <div style="margin-top:8px">
+      <div class="small-muted">Введіть дані картки (демо)</div>
+      <input id="cardNumber" class="input" placeholder="Номер картки" style="margin-top:8px">
+      <div style="display:flex; gap:8px; margin-top:8px">
+        <input id="cardExpiry" class="input" placeholder="MM/YY">
+        <input id="cardCvc" class="input" placeholder="CVC">
+      </div>
+    </div>
+
+    <div style="margin-top:12px" class="modal-actions">
+      <button id="confirmPay" class="btn btn-cta">Оплатити</button>
+      <button id="cancelPay" class="btn btn-ghost">Скасувати</button>
+    </div>
+  </div>
+</div>
+</body>
+</html>

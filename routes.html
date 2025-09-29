@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<title>Вітаємо</title>
+<link rel="stylesheet" href="css/style.css">
+<script src="js/mylibs1.js" defer></script>
+<script src="js/route.js" defer></script>
+</head>
+<body>
+<main class="main">
+  <div class="top-bar">
+    <div class="logo"><img src="img/logo.png" alt="BuchaPay Logo"></div>
+    <div class="datetime" id="datetime"></div>
+  </div>
+<nav class="menu">
+  <a href="ticket.html">Купити квиток</a>
+  <a href="https://nezlamni.city/articles/290733/spisok-ukrittiv-u-buchanskij-gromadi">Карта укриттів</a>
+  <a href="index.html">Розклад транспорту</a>
+  <a href="routes.html">Маршрутна карта</a>
+  <a href="#" id="aboutBtn">Про нас</a>
+</nav>
+<div class="about-modal">
+  <div class="about-modal-box">
+    <h2>Bucha Pay</h2>
+    <p><strong>Хто ми:</strong> Bucha Pay — сучасний комерційний сервіс для мешканців міста Буча, створений, щоб зробити пересування по місту
+       максимально зручним і комфортним.</p>
+    <p><strong>Наш сервіс:</strong> Ми дозволяємо купувати електронні квитки для маршруток, автобусів та поїздів, а також переглядати актуальний
+       розклад громадського транспорту в режимі реального часу.</p>
+    <p><strong>Наша мета:</strong> Ми прагнемо зробити поїздки швидкими, безготівковими та без зайвих черг, забезпечуючи мешканцям та гостям
+       міста надійний інструмент для планування маршрутів.</p>
+    <p><strong>Переваги:</strong> Зручність, ефективне користування громадським транспортом, економія часу та приємні, безпечні поїздки для всіх користувачів.</p>
+    <button class="about-close-btn">Закрити</button>
+  </div>
+</div>
+<h1 class="routee_logo">Маршрути</h1>
+<div class="controls">
+  <input type="text" id="searchInput" placeholder="Пошук маршруту...">
+  <select id="typeFilter">
+    <option value="">Усі види транспорту</option>
+    <option value="маршрутка">Маршрутки</option>
+    <option value="автобус">Автобуси</option>
+    <option value="електричка">Електрички</option>
+  </select>
+</div>
+
+<div class="route-block" id="routeBlock"></div>
+</main>
+<footer>
+  <div class="footer-content">
+    <img src="img/footer_logo.png" alt="Логотип" class="footer-logo">
+    <span>&copy; 2025 Created by Veronika Lebedovska</span>
+  </div>
+</footer>
+</body>
+</html>
