@@ -244,6 +244,102 @@ body {
   text-transform: uppercase;
   font-size: 0.8rem;
 }
+/*---FAQ---*/
+/* Основні стилі */
+#faq {
+  max-width: 700px;
+  margin: 50px auto;
+  font-family: Arial, sans-serif;
+  padding: 0 15px; /* відступи для мобільних */
+}
+
+#faq h2 {
+  text-align: center;
+  color: #2e7d32; /* темно-зелений */
+  margin-bottom: 20px;
+}
+
+.faq-item {
+  border-bottom: 1px solid #cddc39; /* світло-жовтий */
+  margin-bottom: 10px;
+  background-color: #ffffff; /* білий фон */
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.faq-question {
+  width: 100%;
+  background-color: #aed581; /* зелений світлий */
+  color: #1b5e20; /* темно-зелений текст */
+  padding: 15px;
+  text-align: left;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  position: relative;
+}
+
+.faq-question::after {
+  content: '▼';
+  position: absolute;
+  right: 20px;
+  transition: transform 0.3s ease;
+}
+
+.faq-question.active::after {
+  transform: rotate(180deg);
+}
+
+.faq-question:hover {
+  background-color: #dcedc8; /* світло-жовто-зелений */
+}
+
+.faq-answer {
+  display: none;
+  padding: 15px;
+  background-color: #f9fbe7; /* дуже світлий жовтий */
+  font-size: 15px;
+  color: #333;
+  line-height: 1.5;
+}
+
+/* --- Адаптивні стилі --- */
+
+/* Планшети (768px і менше) */
+@media (max-width: 768px) {
+  #faq {
+    padding: 0 20px;
+  }
+  .faq-question {
+    font-size: 15px;
+    padding: 12px;
+  }
+  .faq-answer {
+    font-size: 14px;
+    padding: 12px;
+  }
+}
+
+/* Мобільні телефони (480px і менше) */
+@media (max-width: 480px) {
+  #faq {
+    margin: 30px auto;
+    padding: 0 10px;
+  }
+  .faq-question {
+    font-size: 14px;
+    padding: 10px;
+  }
+  .faq-question::after {
+    right: 15px;
+  }
+  .faq-answer {
+    font-size: 13px;
+    padding: 10px;
+  }
+}
 
 /* --- МОДАЛЬНЕ ВІКНО --- */
 .about-modal {
@@ -328,23 +424,238 @@ body {
     font-size: 14px;
   }
 }
-/* ================== FOOTER ================== */
-footer {
-  margin-top: 20px;
+/*---галерея---*/
+.photo-gallery {
+  padding: 40px 0;
+  background-color: #f8f9fa;
   text-align: center;
-  color: var(--muted);
-  font-size: 13px;
 }
 
-.footer-content {
-  display: inline-flex;
+.photo-container {
+  display: flex;
+  justify-content: center;
   align-items: center;
-  gap: 8px;
+  flex-wrap: wrap; /* для адаптивності */
+  gap: 15px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.footer-logo {
+.photo-container img {
+  width: 250px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.photo-container img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* --- 📱 Адаптація під планшети --- */
+@media (max-width: 992px) {
+  .photo-container img {
+    width: 200px;
+    height: 130px;
+  }
+}
+
+/* --- 📱 Адаптація під телефони --- */
+@media (max-width: 600px) {
+  .photo-container {
+    gap: 10px;
+  }
+
+  .photo-container img {
+    width: 45%;
+    height: 120px;
+  }
+}
+
+/* --- 📱 Дуже маленькі екрани --- */
+@media (max-width: 400px) {
+  .photo-container img {
+    width: 90%;
+    height: 140px;
+  }
+}
+/*---банер---*/
+.hero-banner {
+  width: 100%;
+  min-height: 30vh;
+  background: linear-gradient(
+    135deg,
+    #d6f5d6 0%,
+    #f8fbdc 50%,
+    #e1ffd0 100%
+  );
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #1a4314;
+  padding: 40px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Анімаційне світіння */
+.hero-banner::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+  animation: pulse 6s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}
+
+.banner-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+}
+
+.banner-title {
+  font-size: 4rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #2e7d32;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.banner-subtitle {
+  font-size: 1.3rem;
+  margin: 20px 0 30px;
+  color: #3e4e32;
+  line-height: 1.6;
+}
+
+.banner-btn {
+  display: inline-block;
+  background-color: #f4c430;
+  color: #1a4314;
+  padding: 12px 30px;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.banner-btn:hover {
+  background-color: #ffd84d;
+  transform: scale(1.05);
+}
+
+/* ======= АДАПТИВНІСТЬ ======= */
+@media (max-width: 992px) {
+  .banner-title {
+    font-size: 3rem;
+  }
+  .banner-subtitle {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-banner {
+    min-height: 50vh;
+    padding: 30px 15px;
+  }
+  .banner-title {
+    font-size: 2.3rem;
+  }
+  .banner-subtitle {
+    font-size: 1rem;
+  }
+  .banner-btn {
+    padding: 10px 24px;
+    font-size: 0.95rem;
+  }
+}
+
+/* ================== FOOTER ================== */
+/* --- Основний футер --- */
+.site-footer {
+  background: linear-gradient(90deg, #16a34a, #facc15);
+  padding: 30px 20px;
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.site-footer__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Меню футера */
+.site-footer__nav {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.site-footer__nav a {
+  color:#000;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.site-footer__nav a:hover {
+  color: #cddc39; /* світло-жовтий при наведенні */
+  transform: scale(1.05);
+}
+
+/* Логотип футера */
+.site-footer__logo {
   width: 100px;
   height: 50px;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Авторський текст */
+.site-footer__copyright {
+  display: block;
+}
+
+/* --- Адаптивність --- */
+@media (max-width: 768px) {
+  .site-footer__nav { gap: 20px; }
+  .site-footer__logo { width: 80px; height: 40px; }
+}
+
+@media (max-width: 480px) {
+  .site-footer__nav {
+    flex-direction: column; /* вертикально на маленьких екранах */
+    gap: 10px;
+  }
+  .site-footer__logo { width: 70px; height: 35px; }
+  .site-footer__copyright { font-size: 12px; }
 }
 
 /* Планшети */
@@ -659,5 +970,117 @@ input, select {
   .route-info_marsh p {
     font-size: 10px;
     padding-left: 10px;
+  }
+}
+/*---Правила транспорту---*/
+.rules {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  line-height: 1.6;
+  color: #222; /* темний текст */
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.rules__section {
+  margin-bottom: 30px;
+}
+
+.rules__title {
+  color: #2e7d32; /* зелений */
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+}
+
+.rules__subtitle {
+  color: #558b2f;
+  font-size: 1.2rem;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.rules__text {
+  margin-bottom: 10px;
+}
+
+.rules__list {
+  padding-left: 20px;
+  margin: 10px 0;
+}
+
+.rules__list li {
+  margin-bottom: 8px;
+}
+
+.rules a {
+  color: #2e7d32;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.rules a:hover {
+  color: #cddc39; /* світло-жовтий при наведенні */
+}
+
+/* Стрілка повернення */
+    .back-home {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: var(--green);
+      color: var(--light);
+      text-decoration: none;
+      font-size: 18px;
+      padding: 10px 14px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      transition: 0.3s;
+    }
+
+    .back-home:hover {
+      background: var(--yellow);
+      color: var(--text);
+      transform: scale(1.1);
+    }
+  /* --- Адаптивність --- */
+@media (max-width: 768px) {
+  .rules {
+    padding: 25px 15px;
+  }
+  .rules__title {
+    font-size: 1.4rem;
+  }
+  .rules__subtitle {
+    font-size: 1.1rem;
+  }
+  .back-home {
+        top: 10px;
+        left: 10px;
+        font-size: 16px;
+        padding: 8px 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .rules {
+    padding: 20px 12px;
+    font-size: 0.95rem;
+  }
+  .rules__title {
+    font-size: 1.2rem;
+  }
+  .rules__subtitle {
+    font-size: 1rem;
+  }
+  .rules__list {
+    padding-left: 15px;
+  }
+  .back-home {
+        font-size: 14px;
+        padding: 7px 9px;
   }
 }

@@ -299,3 +299,28 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+const faqItems = document.querySelectorAll('.faq-item');
+
+faqItems.forEach(item => {
+  const btn = item.querySelector('.faq-question');
+  btn.addEventListener('click', () => {
+    const answer = item.querySelector('.faq-answer');
+
+    // Закриваємо інші відповіді
+    faqItems.forEach(i => {
+      if(i !== item) {
+        i.querySelector('.faq-answer').style.display = 'none';
+        i.querySelector('.faq-question').classList.remove('active');
+      }
+    });
+
+    // Перемикаємо поточну
+    if(answer.style.display === 'block') {
+      answer.style.display = 'none';
+      btn.classList.remove('active');
+    } else {
+      answer.style.display = 'block';
+      btn.classList.add('active');
+    }
+  });
+});

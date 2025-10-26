@@ -13,41 +13,103 @@
   <header>
     <div>
       <h1 class="title-with-icon">
-       <img src="img/logo.png" alt="Іконка автобуса" class="title-icon">
+       <img src="img/logo.png" alt="Іконка автобуса" class="title-icon" onerror="this.style.display='none'">
          Оплата транспорту в один клік
       </h1>
       <p class="small-muted">Оберіть маршрут — оплатіть — збережіть квиток</p>
       <a class="small-muted" href="index.html">Повернутися на головну сторінку</a>
     </div>
-    <div class="flex">
-      <button id="logoutBtn" class="logout hidden" title="Вихід">Вийти</button>
+    <div class="header-account">
+      <div id="notLoggedUI">
+        <button id="openLoginBtn" class="btn btn-ghost">Увійти</button>
+        <button id="openRegisterBtn" class="btn">Реєстрація</button>
+      </div>
+      <div id="loggedUI" class="hidden account-actions">
+        <img id="headerAvatar" class="avatar-small" src="" alt="Аватар" onerror="this.style.display='none'">
+        <div>
+          <div id="headerName" class="account-name"></div>
+          <div style="font-size:12px;color:var(--muted)" id="headerEmail"></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <button id="openProfileBtn" class="btn btn-ghost" title="Мій кабінет">Кабінет</button>
+          <button id="logoutBtn" class="logout" title="Вихід">Вийти</button>
+        </div>
+      </div>
     </div>
   </header>
+
   <!-- Grid: ліва + права колонка -->
   <div class="grid">
     <!-- Ліва колонка: логін та інформація -->
     <div>
-      <!-- Login Card -->
-      <div class="login-card" id="loginCard">
+      <!-- Login Card (заміщено кнопками у хедері) -->
+      <div class="login-card" id="loginCardInline">
         <h2>Увійдіть, щоб купити квиток</h2>
 
         <form id="loginForm" autocomplete="off">
-          <label class="muted" for="username">Логін</label>
-          <input id="username" class="input" type="text" placeholder="Логін" required value="user">
+          <label class="muted" for="login_email">Пошта або логін</label>
+          <input id="login_email" class="input" type="text" placeholder="Пошта або логін" required>
 
-          <label class="muted" for="password">Пароль</label>
-          <input id="password" class="input" type="password" placeholder="Пароль" required value="password123">
+          <label class="muted" for="login_password">Пароль</label>
+          <div class="field-with-icon">
+            <input id="login_password" class="input" type="password" placeholder="Пароль" required>
+            <button type="button" id="toggleLoginPassword" class="icon-btn" title="Показати/сховати пароль">👁️</button>
+          </div>
 
           <div style="display:flex; gap:8px; margin-top:12px">
             <button type="submit" class="btn btn-cta">Увійти</button>
-            <button type="button" id="demoBtn" class="btn btn-ghost">Демо</button>
+            <button type="button" id="forgotPassBtn" class="btn btn-ghost">Відновити пароль</button>
           </div>
 
-          <div id="errorMsg" class="error">Невірний логін або пароль</div>
+          <div id="loginError" class="error">Невірний логін або пароль</div>
         </form>
 
         <hr style="margin:14px 0; border:none; border-top:1px solid rgba(6,44,15,0.04)">
 
+        <!-- Profile / History Card -->
+        <div id="profileCard" class="profile-card hidden" aria-live="polite">
+          <!-- Профіль -->
+          <div class="profile-row">
+            <img id="profileAvatar" class="avatar-large" src="" alt="Аватар" onerror="this.style.display='none'">
+            <div class="profile-info">
+              <div id="profileFullName">Ім'я Прізвище</div>
+              <div id="profileEmail">email@example.com</div>
+              <div id="profilePhone">+380 00 000 0000</div>
+            </div>
+          </div>
+
+          <!-- Кнопки під профілем -->
+          <div class="profile-actions">
+            <button id="editProfileBtn" class="btn btn-ghost">Редагувати</button>
+            <button id="viewHistoryBtn" class="btn">Історія покупок</button>
+          </div>
+
+          <!-- Секція редагування профілю -->
+          <div id="profileEditSection" class="hidden">
+            <h4>Редагувати акаунт</h4>
+            <div class="profile-edit-form">
+              <input id="editFirstName" class="input" placeholder="Ім'я">
+              <input id="editLastName" class="input" placeholder="Прізвище">
+              <input id="editDob" class="input" type="date" placeholder="Дата народження">
+              <input id="editPhone" class="input" placeholder="Номер телефону">
+              <input id="avatarFile" type="file" accept="image/*">
+            </div>
+            <div class="profile-edit-actions">
+              <button id="saveProfileBtn" class="btn btn-cta">Зберегти</button>
+              <button id="cancelEditProfileBtn" class="btn btn-ghost">Скасувати</button>
+            </div>
+          </div>
+
+          <!-- Секція історії покупок -->
+          <div id="historySection" class="hidden">
+            <h4>Історія покупок</h4>
+            <div id="historyList" class="history-list">
+              <!-- Історія заповнюється JS -->
+            </div>
+            <button id="clearHistoryBtn" class="btn btn-ghost">Очистити історію</button>
+          </div>
+        </div>
+        
         <div>
           <p class="muted" style="margin:0 0 8px 0"><strong>Ціни (загальні):</strong></p>
           <ul style="margin:0; padding-left:18px;">
@@ -82,7 +144,6 @@
         </div>
       </div>
     </div>
-
     <!-- Права колонка: маршрути та панель квитка -->
     <div>
       <div class="routes-card" id="routesCard">
@@ -130,12 +191,14 @@
   <!-- Footer -->
 <footer>
   <div class="footer-content">
-    <img src="img/footer_logo.png" alt="Логотип" class="footer-logo">
+    <img src="img/footer_logo.png" alt="Логотип" class="footer-logo" onerror="this.style.display='none'">
     <span>&copy; 2025 Created by Veronika Lebedovska</span>
   </div>
 </footer>
 </div>
-<!-- Модальне вікно оплати -->
+
+<!-- Модалі та форми (приховані) -->
+<!-- Модаль оплати -->
 <div id="modal" class="modal" role="dialog" aria-modal="true">
   <div class="modal-box">
     <h3 style="margin:0 0 6px 0">Оплата квитка</h3>
@@ -148,7 +211,7 @@
 
     <div style="margin-top:8px">
       <div class="small-muted">Введіть дані картки (демо)</div>
-      <input id="cardNumber" class="input" placeholder="Номер картки" style="margin-top:8px">
+      <input id="cardNumber" class="input" placeholder="Номер картки (XXXX XXXX XXXX XXXX)" style="margin-top:8px" maxlength="19">
       <div style="display:flex; gap:8px; margin-top:8px">
         <input id="cardExpiry" class="input" placeholder="MM/YY">
         <input id="cardCvc" class="input" placeholder="CVC">
@@ -161,5 +224,61 @@
     </div>
   </div>
 </div>
+
+<!-- Регістрація (модал) -->
+<div id="registerModal" class="modal" aria-modal="true">
+  <div class="modal-box" style="max-width:480px;">
+    <h3 style="margin:0 0 6px 0">Реєстрація аккаунту</h3>
+    <div style="margin-top:8px; text-align:left">
+      <input id="regFirstName" class="input" placeholder="Ім'я" style="margin-top:8px">
+      <input id="regLastName" class="input" placeholder="Прізвище" style="margin-top:8px">
+      <input id="regDob" class="input" type="date" placeholder="Дата народження" style="margin-top:8px">
+      <input id="regEmail" class="input" placeholder="Електронна пошта" style="margin-top:8px">
+      <input id="regPhone" class="input" placeholder="Номер телефону" style="margin-top:8px">
+      <div style="display:flex; gap:8px; margin-top:8px">
+        <div style="flex:1" class="field-with-icon">
+          <input id="regPassword" class="input" placeholder="Пароль (мін 6 символів)" type="password">
+          <button type="button" id="toggleRegPassword" class="icon-btn">👁️</button>
+        </div>
+        <div style="flex:1">
+          <input id="regPassword2" class="input" placeholder="Підтвердіть пароль" type="password">
+        </div>
+      </div>
+      <div style="margin-top:8px; display:flex; gap:8px; align-items:center">
+        <input id="avatarUpload" type="file" accept="image/*">
+        <div class="muted" style="font-size:13px">Додайте фото профілю (необов'язково)</div>
+      </div>
+    </div>
+
+    <div style="margin-top:12px; display:flex; gap:8px; justify-content:center">
+      <button id="registerBtn" class="btn btn-cta">Зареєструватися</button>
+      <button id="cancelRegister" class="btn btn-ghost">Скасувати</button>
+    </div>
+    <div id="registerError" class="error"></div>
+  </div>
+</div>
+
+<!-- Відновлення пароля (модал) -->
+<div id="recoverModal" class="modal" aria-modal="true">
+  <div class="modal-box">
+    <h3 style="margin:0 0 6px 0">Відновлення пароля</h3>
+    <div style="margin-top:8px">
+      <input id="recoverEmail" class="input" placeholder="Введіть вашу пошту" style="margin-top:8px">
+      <div style="display:flex; gap:8px; margin-top:8px">
+        <button id="sendRecoveryCode" class="btn btn-cta">Надіслати код</button>
+        <button id="cancelRecover" class="btn btn-ghost">Скасувати</button>
+      </div>
+      <div id="recoveryNotice" class="muted" style="margin-top:8px; font-size:13px"></div>
+
+      <!-- код та новий пароль -->
+      <div id="recoverStep2" class="hidden" style="margin-top:8px">
+        <input id="recoveryCode" class="input" placeholder="Код підтвердження" style="margin-top:8px">
+        <input id="newPassword" class="input" placeholder="Новий пароль" type="password" style="margin-top:8px">
+        <button id="resetPasswordBtn" class="btn btn-cta" style="margin-top:8px">Встановити пароль</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>

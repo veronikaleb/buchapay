@@ -10,7 +10,7 @@
 <body>
 <main class="main">
   <div class="top-bar">
-    <div class="logo"><img src="img/logo.png" alt="BuchaPay Logo"></div>
+   <div class="logo"><a href="index.html"><img src="img/logo.png" alt="BuchaPay Logo"></a></div>
     <div class="datetime" id="datetime"></div>
   </div>
 <nav class="menu">
@@ -34,6 +34,7 @@
   </div>
 </div>
 <h1 class="routee_logo">Маршрути</h1>
+<a href="index.html" class="back-home" title="На головну">←</a>
 <div class="controls">
   <input type="text" id="searchInput" placeholder="Пошук маршруту...">
   <select id="typeFilter">
@@ -46,10 +47,17 @@
 
 <div class="route-block" id="routeBlock"></div>
 </main>
-<footer>
-  <div class="footer-content">
-    <img src="img/footer_logo.png" alt="Логотип" class="footer-logo">
-    <span>&copy; 2025 Created by Veronika Lebedovska</span>
+<footer class="site-footer">
+  <div class="site-footer__container">
+    <nav class="site-footer__nav">
+      <a href="rules.html">Правила користування транспортом</a>
+      <a href="https://bucha-rada.gov.ua/content/kp-buchatransservis" target="_blank">Бучатранссервіс</a>
+      <a href="https://www.bucha-rada.gov.ua">Бучанська міська рада</a>
+      <a href="https://www.buchaservice.com">Буча Сервіс</a>
+      <a href="#" id="https://imr.gov.ua/tov-irpinske-atp-13250">Ірпінське АТП 13250</a>
+    </nav>
+    <img src="img/footer_logo.png" alt="Логотип" class="site-footer__logo">
+    <span class="site-footer__copyright">&copy; 2025 Created by Veronika Lebedovska</span>
   </div>
 </footer>
 </body>
